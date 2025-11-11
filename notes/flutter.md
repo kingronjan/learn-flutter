@@ -26,6 +26,60 @@
 ![](./assets/images/onpress.png)
 
 
+```dart
+import 'package:flutter/material.dart';
+
+void main(List<String> args) {
+  runApp(MySatefulApp());
+}
+
+class MySatefulApp extends StatefulWidget {
+  const MySatefulApp({super.key});
+
+  @override
+  State<MySatefulApp> createState() => _MySatefulAppState();
+}
+
+class _MySatefulAppState extends State<MySatefulApp> {
+  int value = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text('My Stateful App')),
+        body: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              // 没有 hover 效果 需要自己实现
+              child: Icon(Icons.add),
+              // onDoubleTap: ,  // 双击事件
+              onTap: () {
+                setState(() {
+                  value++;
+                });
+              },
+            ),
+            Text(value.toString()),
+            TextButton(
+              onPressed: () => {
+                setState(() {
+                  value--;
+                }),
+              },
+              child: Icon(Icons.remove),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+```
+
+
 ### 布局组件介绍
 
 ![](./assets/images/layout_widgets.png)
@@ -56,6 +110,30 @@
 - 通过 widthfactor 和 heightfactor 可以创建出与子组件大小成比例的容器
 
 center 其实是 align 的一个特例，（继承自 align），相当于设置了 `alignment = Align.center`
+
+
+```dart
+class MyAlignApp extends StatelessWidget {
+  const MyAlignApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text('My Align App')),
+        body: Align(
+          alignment: Alignment.bottomRight,
+          child: Container(
+            color: Colors.blue,
+            width: 100,
+            height: 100,
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
 
 
 #### padding
@@ -94,6 +172,63 @@ container 也有 padding 属性，单一需求可以使用 padding，复杂场�
 
 expanded/flexible 作为 flex 子组件通过 flex 属性来分配 flex 组件空间
 
+```dart
+import 'package:flutter/material.dart';
+
+void main(List<String> args) {
+  runApp(MyFlexApp());
+}
+
+
+class MyFlexApp extends StatelessWidget {
+  const MyFlexApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Flex Widget Example'),
+        ),
+        body: Center(
+          child: Flex(
+            direction: Axis.horizontal,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Container(
+                  color: Colors.red,
+                  height: 100,
+                  child: Center(child: Text('Flex 2')),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  color: Colors.blue,
+                  height: 100,
+                  child: Center(child: Text('Flex 1')),
+                ),
+              ),
+              Flexible(
+                flex: 1,
+                fit: FlexFit.tight,  // 实现和 Expanded 相同的效果，需要同时设置其余的 Flexible 兄弟组件
+                child: Container(
+                  color: Colors.green,
+                  height: 100,
+                  child: Center(child: Text('Flex 1')),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+```
+
 
 #### wrap
 
@@ -106,3 +241,58 @@ expanded/flexible 作为 flex 子组件通过 flex 属性来分配 flex 组件�
 
 ![](./assets/images/stack_positioned_1.png)
 
+
+#### text
+
+```dart
+class MyTextApp extends StatelessWidget {
+  const MyTextApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text('Text Widget Example')),
+        body: Center(
+          child: Text(
+            'Hello, Flutter!',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue,
+            ),
+            maxLines: 2, // 最多显示两行
+            overflow: TextOverflow.ellipsis, // 超出部分显示省略号
+          ),
+        ),
+        bottomNavigationBar: Text.rich(
+          TextSpan(
+            // Textspan 组合文本
+            text: 'Rich ',
+            style: TextStyle(fontSize: 20, color: Colors.black),
+            children: [
+              TextSpan(
+                text: 'Text ',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextSpan(
+                text: 'Example',
+                // 未定义 style，继承父级样式
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+```
+
+#### singlescrollview
+
+![](./assets/images/singlescrollview.png)

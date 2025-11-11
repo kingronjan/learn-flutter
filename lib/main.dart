@@ -1,48 +1,46 @@
 import 'package:flutter/material.dart';
 
 void main(List<String> args) {
-  runApp(MyFlexApp());
+  runApp(MyTextApp());
 }
 
-
-class MyFlexApp extends StatelessWidget {
-  const MyFlexApp({super.key});
+class MyTextApp extends StatelessWidget {
+  const MyTextApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Flex Widget Example'),
-        ),
+        appBar: AppBar(title: Text('Text Widget Example')),
         body: Center(
-          child: Flex(
-            direction: Axis.horizontal,
+          child: Text(
+            'Hello, Flutter!',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue,
+            ),
+            maxLines: 2, // 最多显示两行
+            overflow: TextOverflow.ellipsis, // 超出部分显示省略号
+          ),
+        ),
+        bottomNavigationBar: Text.rich(
+          TextSpan(
+            // Textspan 组合文本
+            text: 'Rich ',
+            style: TextStyle(fontSize: 20, color: Colors.black),
             children: [
-              Expanded(
-                flex: 2,
-                child: Container(
+              TextSpan(
+                text: 'Text ',
+                style: TextStyle(
+                  fontSize: 20,
                   color: Colors.red,
-                  height: 100,
-                  child: Center(child: Text('Flex 2')),
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  color: Colors.blue,
-                  height: 100,
-                  child: Center(child: Text('Flex 1')),
-                ),
-              ),
-              Flexible(
-                flex: 1,
-                fit: FlexFit.tight,  // 实现和 Expanded 相同的效果，需要同时设置其余的 Flexible 兄弟组件
-                child: Container(
-                  color: Colors.green,
-                  height: 100,
-                  child: Center(child: Text('Flex 1')),
-                ),
+              TextSpan(
+                text: 'Example',
+                // 未定义 style，继承父级样式
               ),
             ],
           ),
