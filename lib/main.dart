@@ -1,51 +1,46 @@
 import 'package:flutter/material.dart';
 
 void main(List<String> args) {
-  runApp(MyTextApp());
+  runApp(MyWidget());
 }
 
-class MyTextApp extends StatelessWidget {
-  const MyTextApp({super.key});
+
+class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  bool visible = true;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'disapper',
       home: Scaffold(
-        appBar: AppBar(title: Text('Text Widget Example')),
         body: Center(
-          child: Text(
-            'Hello, Flutter!',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.blue,
+          child: AnimatedOpacity(
+            opacity: visible ? 1.0 : 0.0,
+            duration: const Duration(seconds: 1),
+            child: Container(
+              height: 300,
+              width: 300,
+              color: Colors.amber,
+              child: TextButton(
+                onPressed: () => {
+                  setState(() {
+                    visible = !visible;
+                  })
+                },
+                child: Text('A', style: TextStyle(fontSize: 28)),
+              ),
             ),
-            maxLines: 2, // 最多显示两行
-            overflow: TextOverflow.ellipsis, // 超出部分显示省略号
-          ),
-        ),
-        bottomNavigationBar: Text.rich(
-          TextSpan(
-            // Textspan 组合文本
-            text: 'Rich ',
-            style: TextStyle(fontSize: 20, color: Colors.black),
-            children: [
-              TextSpan(
-                text: 'Text ',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              TextSpan(
-                text: 'Example',
-                // 未定义 style，继承父级样式
-              ),
-            ],
           ),
         ),
       ),
     );
   }
 }
+
