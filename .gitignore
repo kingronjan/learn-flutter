@@ -3,7 +3,6 @@
 *.log
 *.pyc
 *.swp
-.DS_Store
 .atom/
 .build/
 .buildlog/
@@ -12,11 +11,22 @@
 .swiftpm/
 migrate_working_dir/
 
+# Build/Generated files
+build/
+**/*.aot
+**/*.h
+**/*.o
+**/*.so
+
 # IntelliJ related
 *.iml
 *.ipr
 *.iws
 .idea/
+
+# IDEs
+.vscode/
+*.iml
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
@@ -43,3 +53,17 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Android specific
+android/local.properties
+android/.gradle
+/android/key.properties
+
+
+# iOS specific
+ios/Flutter/Generated.xcconfig
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
